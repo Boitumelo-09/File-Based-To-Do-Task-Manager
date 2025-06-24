@@ -47,6 +47,7 @@ struct Task
     bool isCompleted;
     Task *next;
 };
+void addTask(Task *&head);
 int main()
 {
     Task *head = nullptr;
@@ -97,4 +98,9 @@ void userTerminal(int &option)
     system("cls");
     std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task \n7. Exit\n\n ";
     std::cin >> option;
+}
+void addTask(Task *&head)
+{
+    system("cls");
+    Task *newTask = new Task();
 }
