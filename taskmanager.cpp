@@ -50,6 +50,7 @@ struct Task
 };
 void greetUser();
 void addTask(Task *&head, int &id);
+void viewAllTasks(Task *head);
 int main()
 {
     srand(time(NULL));
@@ -67,7 +68,7 @@ int main()
             addTask(head, id);
             break;
         case 2:
-            /* code */
+            viewAllTasks(head);
             break;
         case 3:
             /* code */
@@ -153,6 +154,30 @@ void addTask(Task *&head, int &id)
 }
 void viewAllTasks(Task *head)
 {
-
+    Task *iterator = head;
+    system("cls");
     std::cout << "All Tasks";
+    if (iterator == nullptr)
+    {
+        std::cout << "\nNo tasks available.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        return;
+    }
+
+    while (iterator != nullptr)
+    {
+        std::cout << "\nTask ID      : " << iterator->id;
+        std::cout << "\nTitle        : " << iterator->title;
+        std::cout << "\nDescription  : " << iterator->description;
+        std::cout << "\nDue Date     : " << iterator->dueDate;
+        std::cout << "\nStatus       : " << (iterator->isCompleted ? "Completed" : "Pending");
+        std::cout << "\n-----------------------------------\n";
+        iterator = iterator->next;
+    }
+    std::cout << "End Of Task List\n";
+    std::cin.ignore();
+    std::cout << "\nPress Enter To Return To Menu...";
+    std::cin.get();
+    system("cls");
 }
