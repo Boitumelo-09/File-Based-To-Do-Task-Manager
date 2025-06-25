@@ -38,6 +38,7 @@ Load them when program starts. */
 void userTerminal(int &option);
 #include <iostream>
 #include <fstream>
+#include <ctime>
 struct Task
 {
     int id;
@@ -47,19 +48,23 @@ struct Task
     bool isCompleted;
     Task *next;
 };
-void addTask(Task *&head);
+void greetUser();
+void addTask(Task *&head, int &id);
 int main()
 {
+    srand(time(NULL));
     Task *head = nullptr;
     int menuOption;
+    int id = (rand() % 0001) + 1050;
     system("cls");
+    greetUser();
     do
     {
         userTerminal(menuOption);
         switch (menuOption)
         {
         case 1:
-            /* code */
+            addTask(head, id);
             break;
         case 2:
             /* code */
@@ -89,18 +94,65 @@ int main()
 
     return 0;
 }
-void userTerminal(int &option)
+void greetUser()
 {
     system("cls");
     std::cout << "Hello, Welcome To The Task Manager App" << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
     system("cls");
-    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task \n7. Exit\n\n ";
+}
+void userTerminal(int &option)
+{
+
+    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task \n7. Exit\n\nOption:";
     std::cin >> option;
 }
-void addTask(Task *&head)
+void addTask(Task *&head, int &id)
 {
     system("cls");
+    std::cout << "Adding Task...\n";
     Task *newTask = new Task();
+    newTask->next = nullptr;
+    newTask->isCompleted = false;
+    std::cin.ignore();
+
+    std::cout << "\nTitle       :";
+    getline(std::cin, newTask->title);
+
+    std::cout << "\nDescription :";
+    getline(std::cin, newTask->description);
+
+    std::cout << "\nDue Date    :";
+    getline(std::cin, newTask->dueDate);
+
+    std::cout << "\nDone!, Press Enter To Generate Task Id...";
+    std::cin.get();
+    system("cls");
+    newTask->id = id++;
+
+    if (head == nullptr)
+    {
+
+        head = newTask;
+    }
+    else
+    {
+        Task *current = head;
+        while (current->next != nullptr)
+        {
+            current = current->next;
+        }
+        current->next = newTask;
+    }
+    std::cout << "Task Has Been Added Succesfully\n";
+    std::cout << "Task ID :" << newTask->id;
+    std::cout << "\nPress Enter To Return To Menu...";
+    std::cin.get();
+    system("cls");
+}
+void viewAllTasks(Task *head)
+{
+
+    std::cout << "All Tasks";
 }
