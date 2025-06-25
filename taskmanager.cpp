@@ -51,6 +51,7 @@ struct Task
 void greetUser();
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
+void markTasks(Task *&head);
 int main()
 {
     srand(time(NULL));
@@ -181,3 +182,4 @@ void viewAllTasks(Task *head)
     std::cin.get();
     system("cls");
 }
+void markTasks(Task *&head);
