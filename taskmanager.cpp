@@ -183,6 +183,7 @@ void viewAllTasks(Task *head)
     system("cls");
 }
 void markTasks(Task *&head){
+    int markOption;
     std::string taskTitle;
     Task *currentTask = head;
     system("cls");
@@ -191,20 +192,45 @@ void markTasks(Task *&head){
     std::cin.ignore();
        getline(std::cin,taskTitle);
     
-      for (; currentTask!=nullptr;currentTask= currentTask->next )
+       if(head==nullptr){
+           std::cout << "Task Not Found...";
+           std::cout << "Press Enter To Return To Main Menu...";
+           std::cin.get();
+           system("cls");
+       }
+       else
+   {   for (; currentTask!=nullptr;currentTask= currentTask->next )
       {
         if (currentTask->title == taskTitle)
         {
             std::cout << "Task Found...\nDetails\n\n";
             std::cout << "\nTask ID      : " << currentTask->id;
             std::cout << "\nTitle        : " << currentTask->title;
-            std::cout << "\nDescription  : " << currentTask->description;
-            std::cout << "\nDue Date     : " << currentTask->dueDate;
-            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
+            break;
         }
         
       }
+      std::cout << "Options:\n1. Completed\n 2. Still Pending\nChoice:";
+      std::cin >> markOption;
+      if (markOption==1)
+      {
+          currentTask->isCompleted == true;
+            std::cout << "\nTask ID      : " << currentTask->id;
+            std::cout << "\nTitle        : " << currentTask->title;
+            std::cout << "\nDescription  : " << currentTask->description;
+            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
+          
+      }else
+      {
+       currentTask->isCompleted == false;
+            std::cout << "\nTask ID      : " << currentTask->id;
+            std::cout << "\nTitle        : " << currentTask->title;
+            std::cout << "\nDescription  : " << currentTask->description;
+            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Still Pending");
+      }
       
+      
+      }
        
     std::cout<<"Press Enter To Continue...";
     std::cin.get();
