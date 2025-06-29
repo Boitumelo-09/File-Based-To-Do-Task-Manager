@@ -84,7 +84,7 @@ int main()
             /* code */
             break;
         case 7:
-            /* code */
+            /*will exit with freeing memory*/
             break;
 
         default:
@@ -160,9 +160,11 @@ void viewAllTasks(Task *head)
     std::cout << "All Tasks";
     if (iterator == nullptr)
     {
+        std::cin.ignore();
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
+        system("cls");
         return;
     }
 
@@ -199,40 +201,45 @@ void markTasks(Task *&head){
            system("cls");
        }
        else
-   {   for (; currentTask!=nullptr;currentTask= currentTask->next )
-      {
-        if (currentTask->title == taskTitle)
-        {
-            std::cout << "Task Found...\nDetails\n\n";
-            std::cout << "\nTask ID      : " << currentTask->id;
-            std::cout << "\nTitle        : " << currentTask->title;
-            break;
-        }
+     {
+         system("cls");
+         for (; currentTask != nullptr; currentTask = currentTask->next)
+         {
+             if (currentTask->title == taskTitle)
+             {
+                 std::cout << "Task Found...\nDetails\n\n";
+                 std::cout << "\nTask ID      : " << currentTask->id;
+                 std::cout << "\nTitle        : " << currentTask->title;
+                 break;
+             }
         
       }
-      std::cout << "Options:\n1. Completed\n 2. Still Pending\nChoice:";
+      std::cout << "\nOptions:\n1. Completed\n2. Still Pending\nChoice:";
       std::cin >> markOption;
       if (markOption==1)
       {
+          std::cin.ignore();
           currentTask->isCompleted == true;
-            std::cout << "\nTask ID      : " << currentTask->id;
-            std::cout << "\nTitle        : " << currentTask->title;
-            std::cout << "\nDescription  : " << currentTask->description;
-            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
-          
+          std::cout << "\nTask ID      : " << currentTask->id;
+          std::cout << "\nTitle        : " << currentTask->title;
+          std::cout << "\nDescription  : " << currentTask->description;
+          std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
+          std::cout << "Press Enter To Continue...";
+          std::cin.get();
+          system("cls");
       }else
       {
-       currentTask->isCompleted == false;
-            std::cout << "\nTask ID      : " << currentTask->id;
-            std::cout << "\nTitle        : " << currentTask->title;
-            std::cout << "\nDescription  : " << currentTask->description;
-            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Still Pending");
+          std::cin.ignore();
+          currentTask->isCompleted == false;
+          std::cout << "\nTask ID      : " << currentTask->id;
+          std::cout << "\nTitle        : " << currentTask->title;
+          std::cout << "\nDescription  : " << currentTask->description;
+          std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Still Pending");
+          std::cout << "Press Enter To Continue...";
+          std::cin.get();
+          system("cls");
       }
-      
-      
       }
        
-    std::cout<<"Press Enter To Continue...";
-    std::cin.get();
-    system("cls");
+    
 }
