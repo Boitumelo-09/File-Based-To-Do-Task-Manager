@@ -72,7 +72,7 @@ int main()
             viewAllTasks(head);
             break;
         case 3:
-            /* code */
+            markTasks(head);
             break;
         case 4:
             /* code */
@@ -182,4 +182,31 @@ void viewAllTasks(Task *head)
     std::cin.get();
     system("cls");
 }
-void markTasks(Task *&head);
+void markTasks(Task *&head){
+    std::string taskTitle;
+    Task *currentTask = head;
+    system("cls");
+    std::cout<<"Marking Task...\n\n";
+    std::cout<<"Task Title:";
+    std::cin.ignore();
+       getline(std::cin,taskTitle);
+    
+      for (; currentTask!=nullptr;currentTask= currentTask->next )
+      {
+        if (currentTask->title == taskTitle)
+        {
+            std::cout << "Task Found...\nDetails\n\n";
+            std::cout << "\nTask ID      : " << currentTask->id;
+            std::cout << "\nTitle        : " << currentTask->title;
+            std::cout << "\nDescription  : " << currentTask->description;
+            std::cout << "\nDue Date     : " << currentTask->dueDate;
+            std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
+        }
+        
+      }
+      
+       
+    std::cout<<"Press Enter To Continue...";
+    std::cin.get();
+    system("cls");
+}
