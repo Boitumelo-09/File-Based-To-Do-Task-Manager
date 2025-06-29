@@ -36,6 +36,7 @@ struct Task
     Task *next;
 };
 void greetUser();
+void freememory(Task *&head);
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
 void markTasks(Task *&head);
@@ -45,7 +46,7 @@ int main()
     srand(time(NULL));
     Task *head = nullptr;
     int menuOption;
-    int id = (rand() % 0001) + 1050;
+    int id = (rand() % 1000) + 1050;
     system("cls");
     greetUser();
     do
@@ -72,7 +73,7 @@ int main()
             /* code */
             break;
         case 7:
-            /*will exit with freeing memory*/
+            freememory(head);
             break;
 
         default:
@@ -105,11 +106,10 @@ void addTask(Task *&head, int &id)
     Task *newTask = new Task();
     newTask->next = nullptr;
     newTask->isCompleted = false;
-    std::cin.ignore();
 
     std::cout << "\nTitle(One-Word) :";
-    getline(std::cin, newTask->title);
-
+    std::cin>>newTask->title;
+    std::cin.ignore();
     std::cout << "\nDescription     :";
     getline(std::cin, newTask->description);
 
@@ -238,7 +238,83 @@ void markTasks(Task *&head){
 }
 void editTask(Task *&head){
     system("cls");
+    bool isFound=false;
+    Task *tempTask = head;
     std::string taskTitle;
     std::cout << "Editing Task...\nTask Title : ";
     std::cin >> taskTitle;
+    if (tempTask == nullptr)
+    {
+        std::cin.ignore();
+        std::cout << "\nNo tasks available.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
+        return;
+    }
+    else{
+        std::cin.ignore();
+         std::string newTitle , newDescription;
+        for (; tempTask != nullptr;tempTask=tempTask->next){
+            if (taskTitle == tempTask->title)
+            {
+                isFound == true;
+                int updateOption;
+                std::cout << "Task Found...\nPress Enter To Contiue To Make Changes...\n";
+                std::cin.get();
+                system("cls");
+                std::cout << "Making Updates...\nOptions\n1. Update Title\n2. Update Description\n3. Update Status\nOption:";
+                std::cin >> updateOption;
+                switch (updateOption)
+                {
+                case 1:
+                    system("cls");
+                    std::cout << "Updating Title...\n";
+                    std::cout << "Current Title :" << tempTask->title;
+                    std::cout << "\nNew Title     :";
+                    std::cin >> newTitle;
+                    tempTask->title = newTitle;
+                    std::cin.ignore();
+                    std::cout << "\nTask Title Has Been Successfully Updated";
+                    std::cout << "\nPress Enter To Return To Menu...";
+                    std::cin.get();
+                    system("cls");
+                    return;
+                    break;
+                case 2:
+                    system("cls");
+                    
+                    std::cout << "Updating Description...\n";
+                    std::cout << "Current Description :" << tempTask->description;
+                    std::cin.ignore();
+                    std::cout << "\nNew Description   :";
+                    getline(std::cin,newDescription);
+                    tempTask->description= newDescription;
+                   
+                    std::cout << "\nTask Description Has Been Successfully Updated";
+                    std::cout << "\nPress Enter To Return To Menu...";
+                    std::cin.get();
+                    system("cls");
+                    return;
+                    break;
+                default:
+                    freememory(head);
+                    break;
+                }
+            }
+        }
+          if(!isFound){
+              system("cls");
+              std::cout << "Task Not Found...\n";
+                std::cout << "Press Enter To Return To Menu...";
+                std::cin.get();
+                system("cls");
+                return;
+          }
+    }
+}
+void freememory(Task *&head){
+    std::cout << "Freeing Memory...";
+    system("cls");
+    return;
 }
