@@ -1,18 +1,5 @@
 /*
 🔧 Features You’ll Implement:
-Add a New Task
-
-Input task title, description, due date.
-
-Auto-generate unique ID using a counter.
-
-Display All Tasks
-
-Traverse and show pending and completed tasks with status icons ✅ / ❌.
-
-Mark Task as Complete
-
-Search by task ID and set isCompleted = true.
 
 Delete Task
 
@@ -52,6 +39,7 @@ void greetUser();
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
 void markTasks(Task *&head);
+void editTask(Task *&head);
 int main()
 {
     srand(time(NULL));
@@ -75,7 +63,7 @@ int main()
             markTasks(head);
             break;
         case 4:
-            /* code */
+            editTask(head);
             break;
         case 5:
             /* code */
@@ -99,7 +87,7 @@ int main()
 void greetUser()
 {
     system("cls");
-    std::cout << "Hello, Welcome To The Task Manager App" << std::endl;
+    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The ID Should Be One Word\n\n" << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
     system("cls");
@@ -119,13 +107,13 @@ void addTask(Task *&head, int &id)
     newTask->isCompleted = false;
     std::cin.ignore();
 
-    std::cout << "\nTitle       :";
+    std::cout << "\nTitle(One-Word) :";
     getline(std::cin, newTask->title);
 
-    std::cout << "\nDescription :";
+    std::cout << "\nDescription     :";
     getline(std::cin, newTask->description);
 
-    std::cout << "\nDue Date    :";
+    std::cout << "\nDue Date        :";
     getline(std::cin, newTask->dueDate);
 
     std::cout << "\nDone!, Press Enter To Generate Task Id...";
@@ -195,8 +183,8 @@ void markTasks(Task *&head){
        getline(std::cin,taskTitle);
     
        if(head==nullptr){
-           std::cout << "Task Not Found...";
-           std::cout << "Press Enter To Return To Main Menu...";
+           std::cout << "\n\nTask Not Found...";
+           std::cout << "\nPress Enter To Return To Main Menu...";
            std::cin.get();
            system("cls");
        }
@@ -207,30 +195,35 @@ void markTasks(Task *&head){
          {
              if (currentTask->title == taskTitle)
              {
-                 std::cout << "Task Found...\nDetails\n\n";
+                 std::cout << "Task Found...\nDetails:";
                  std::cout << "\nTask ID      : " << currentTask->id;
                  std::cout << "\nTitle        : " << currentTask->title;
                  break;
              }
         
       }
-      std::cout << "\nOptions:\n1. Completed\n2. Still Pending\nChoice:";
+      std::cout << "\n...................................................\n";
+      std::cout << "\n\nOptions:\n1. Completed\n2. Still Pending\nChoice:";
       std::cin >> markOption;
       if (markOption==1)
       {
           std::cin.ignore();
-          currentTask->isCompleted == true;
+          currentTask->isCompleted = true;
+          system("cls");
+          std::cout << "Task Update...\n\n";
+          std::cout << "Details:";
           std::cout << "\nTask ID      : " << currentTask->id;
           std::cout << "\nTitle        : " << currentTask->title;
           std::cout << "\nDescription  : " << currentTask->description;
           std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
-          std::cout << "Press Enter To Continue...";
+          std::cout << "\n\nPress Enter To Continue...";
           std::cin.get();
           system("cls");
       }else
       {
+          system("cls");
           std::cin.ignore();
-          currentTask->isCompleted == false;
+          currentTask->isCompleted = false;
           std::cout << "\nTask ID      : " << currentTask->id;
           std::cout << "\nTitle        : " << currentTask->title;
           std::cout << "\nDescription  : " << currentTask->description;
@@ -242,4 +235,10 @@ void markTasks(Task *&head){
       }
        
     
+}
+void editTask(Task *&head){
+    system("cls");
+    std::string taskTitle;
+    std::cout << "Editing Task...\nTask Title : ";
+    std::cin >> taskTitle;
 }
