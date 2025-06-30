@@ -27,6 +27,7 @@ struct Task
 };
 //Operations || Features
 void greetUser();
+void userTerminal(int &option);
 void freememory(Task *&head);
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
@@ -64,7 +65,7 @@ int main()
             /* code */
             break;
         case 6:
-            /* code */
+            searchTask(head);
             break;
         case 7:
             freememory(head);
@@ -331,9 +332,13 @@ void freememory(Task *&head){
 }
 void deleteTask(Task *&head);
 void searchTask(Task*&head){
-    Task* tempTask = head;
+    system("cls");
+    Task *tempTask = head;
+    bool taskFound = false;
+    std::string searchEntry;
     if (tempTask == nullptr)
     {
+        
         std::cin.ignore();
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
@@ -341,8 +346,51 @@ void searchTask(Task*&head){
         system("cls");
         return;
     }
-    std::string searchEntry;
-    std::cout<<"Search : ";
-    std::cin>>searchEntry;
-     if(head == nullptr){}
+    else{
+
+        std::cin.ignore();
+        std::cout << "\nYou Are Going To Search By Title.\n";
+        std::cout << "Press Enter To Search...";
+        std::cin.get();
+        system("cls");
+         std::cout << "Search : ";
+         std::cin >> searchEntry;
+         for (; tempTask != nullptr; tempTask = tempTask->next)
+         {
+            
+            if (tempTask->title == searchEntry)
+            {
+                taskFound = true;
+                break;
+            }
+            
+         }
+         if (taskFound)
+         {
+             
+             std::cout << "Task Found.\nPress Enter To See Details...";
+             std::cin.ignore();
+             std::cin.get();
+             system("cls");
+             std::cout << "\nTask ID      : " << tempTask->id;
+             std::cout << "\nTitle        : " << tempTask->title;
+             std::cout << "\nDescription  : " << tempTask->description;
+             std::cout << "\nDue Date     : " << tempTask->dueDate;
+             std::cout << "\nStatus       : " << (tempTask->isCompleted ? "Completed" : "Pending");
+             std::cout << "\n-----------------------------------\n";
+             std::cout << "\nPress Enter To Return To Main...";
+             std::cin.get();
+             system("cls");
+             return;
+         }
+         else if(!taskFound){
+            std::cin.ignore();
+            std::cout << "Task Not Found.\nPress Enter To Return To Main...";
+            std::cin.get();
+            system("cls");
+            return;
+         }
+         
+    }
+   
 };
