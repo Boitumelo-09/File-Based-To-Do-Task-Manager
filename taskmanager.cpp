@@ -73,7 +73,9 @@ int main()
             /* code */
             break;
         case 7:
+            system("cls");
             freememory(head);
+            return 0;
             break;
 
         default:
@@ -298,14 +300,17 @@ void editTask(Task *&head){
                     return;
                     break;
                 default:
+                 std::cin.ignore();
+                 std::cout<<"Invalid Response\nPress Enter To Exit App...";
+                 std::cin.get();
                     freememory(head);
                     break;
                 }
             }
         }
           if(!isFound){
-              system("cls");
-              std::cout << "Task Not Found...\n";
+                system("cls");
+                std::cout << "Task Not Found...\n";
                 std::cout << "Press Enter To Return To Menu...";
                 std::cin.get();
                 system("cls");
@@ -314,7 +319,20 @@ void editTask(Task *&head){
     }
 }
 void freememory(Task *&head){
-    std::cout << "Freeing Memory...";
-    system("cls");
+   
+    Task* freeTask = head;
+    if(head == nullptr){
+        free(head);
+    }
+    else
+   { 
+    while(freeTask!=nullptr){
+
+        freeTask = freeTask->next;
+        free(freeTask);
+    }
+}
+     std::cout << "Freeing Memory & Exiting App...\nGood Bye!!!\n";
+
     return;
 }
