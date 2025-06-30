@@ -2,30 +2,20 @@
 🔧 Features You’ll Implement:
 
 Delete Task
-
 Find by ID and unlink + delete node.
-
-Edit Task
-
-Update title, description, or due date.
-
 Search Task by Keyword
-
 Use substring matching in title/description.
-
 Sort Tasks by Due Date (BONUS)
-
 Reorder linked list based on string dates (lexicographically).
-
 Save and Load from File (SUPER BONUS)
-
 Save all tasks to a .txt or .csv file on exit.
+Load them when program starts. 
+*/
 
-Load them when program starts. */
-void userTerminal(int &option);
 #include <iostream>
 #include <fstream>
 #include <ctime>
+
 struct Task
 {
     int id;
@@ -35,12 +25,16 @@ struct Task
     bool isCompleted;
     Task *next;
 };
+//Operations || Features
 void greetUser();
 void freememory(Task *&head);
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
 void markTasks(Task *&head);
 void editTask(Task *&head);
+void deleteTask(Task *&head);
+void searchTask(Task*&head);
+
 int main()
 {
     srand(time(NULL));
@@ -73,7 +67,6 @@ int main()
             /* code */
             break;
         case 7:
-            system("cls");
             freememory(head);
             return 0;
             break;
@@ -319,7 +312,7 @@ void editTask(Task *&head){
     }
 }
 void freememory(Task *&head){
-   
+   system("cls");
     Task* freeTask = head;
     if(head == nullptr){
         free(head);
@@ -336,3 +329,20 @@ void freememory(Task *&head){
 
     return;
 }
+void deleteTask(Task *&head);
+void searchTask(Task*&head){
+    Task* tempTask = head;
+    if (tempTask == nullptr)
+    {
+        std::cin.ignore();
+        std::cout << "\nNo tasks available.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
+        return;
+    }
+    std::string searchEntry;
+    std::cout<<"Search : ";
+    std::cin>>searchEntry;
+     if(head == nullptr){}
+};
