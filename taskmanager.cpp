@@ -1,8 +1,6 @@
 /*
 🔧 Features You’ll Implement:
 
-Delete Task
-Find by ID and unlink + delete node.
 Search Task by Keyword
 Use substring matching in title/description.
 Sort Tasks by Due Date (BONUS)
@@ -178,7 +176,7 @@ void markTasks(Task *&head){
     std::cin.ignore();
        getline(std::cin,taskTitle);
     
-       if(head==nullptr){
+       if(currentTask==nullptr){
            std::cout << "\n\nTask Not Found...";
            std::cout << "\nPress Enter To Return To Main Menu...";
            std::cin.get();
@@ -254,7 +252,7 @@ void editTask(Task *&head){
         for (; tempTask != nullptr;tempTask=tempTask->next){
             if (taskTitle == tempTask->title)
             {
-                isFound == true;
+                isFound = true;
                 int updateOption;
                 std::cout << "Task Found...\nPress Enter To Contiue To Make Changes...\n";
                 std::cin.get();
@@ -315,15 +313,15 @@ void editTask(Task *&head){
 void freememory(Task *&head){
    system("cls");
     Task* freeTask = head;
-    if(head == nullptr){
-        free(head);
+    if(freeTask == nullptr){
+        delete freeTask;
     }
     else
    { 
     while(freeTask!=nullptr){
 
         freeTask = freeTask->next;
-        free(freeTask);
+        delete freeTask;
     }
 }
      std::cout << "Freeing Memory & Exiting App...\nGood Bye!!!\n";
