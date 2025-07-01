@@ -41,7 +41,7 @@ int main()
     srand(time(NULL));
     Task *head = nullptr;
     int menuOption;
-    int id = (rand() % 1000) + 1050;
+    int id = 1;
     system("cls");
     greetUser();
     do
@@ -62,7 +62,7 @@ int main()
             editTask(head);
             break;
         case 5:
-            /* code */
+            deleteTask(head);
             break;
         case 6:
             searchTask(head);
@@ -330,10 +330,12 @@ void freememory(Task *&head){
 
     return;
 }
-void deleteTask(Task *&head){
+void deleteTask(Task *&head , int id){
     system("cls");
     std::string deleteEntry;
     Task *searchPtr = head;
+    Task *secondLast = head;
+    bool found = false;
     int counter = 1;
     if (head == nullptr)
     {
@@ -345,11 +347,51 @@ void deleteTask(Task *&head){
         return;
     }
     else{
-        std::cout<<"Enter Task Title : ";
-         std::cin >> deleteEntry;
-         
-
+        std::cin.ignore();
+        std::cout << "Enter Task Title : ";
+        std::cin >> deleteEntry;
+        for (; searchPtr!=nullptr; searchPtr = searchPtr->next)
+        {
+           if (deleteEntry == searchPtr->title ){
+               found = true;
+               break;
+           }
+        }
         
+        if (found)
+        {
+            system("cls");
+            if( searchPtr->id== 1){
+                free(searchPtr);
+            }
+            else
+           { std::cout << searchPtr->id;
+            while (counter < (searchPtr->id - 1))
+            {
+                secondLast = secondLast->next;
+                counter++;
+            }
+            Task *lastPtr = secondLast->next;
+            secondLast->next = lastPtr->next;
+            free(lastPtr);
+            std::cin.ignore();
+            std::cout << "\nTask Successfully Deleted.\n";
+            std::cout << "Press Enter To Return To Menu...";
+            std::cin.get();
+            system("cls");
+            return;}
+        }
+        else if (!found)
+        {
+            std::cin.ignore();
+            std::cout << "\nTask Not Found.\n";
+            std::cout << "Press Enter To Return To Menu...";
+            std::cin.get();
+            system("cls");
+            return;
+        }
+        
+          
     }
 }
 void searchTask(Task*&head){
