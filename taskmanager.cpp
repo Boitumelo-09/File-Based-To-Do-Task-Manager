@@ -330,7 +330,28 @@ void freememory(Task *&head){
 
     return;
 }
-void deleteTask(Task *&head);
+void deleteTask(Task *&head){
+    system("cls");
+    std::string deleteEntry;
+    Task *searchPtr = head;
+    int counter = 1;
+    if (head == nullptr)
+    {
+        std::cin.ignore();
+        std::cout << "\nNo tasks available.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+         system("cls");
+        return;
+    }
+    else{
+        std::cout<<"Enter Task Title : ";
+         std::cin >> deleteEntry;
+         
+
+        
+    }
+}
 void searchTask(Task*&head){
     system("cls");
     Task *tempTask = head;
