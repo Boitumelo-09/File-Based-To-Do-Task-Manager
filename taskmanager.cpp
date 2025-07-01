@@ -84,7 +84,7 @@ int main()
 void greetUser()
 {
     system("cls");
-    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The ID Should Be One Word\n\n" << std::endl;
+    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The Task Should Be One Word\n\n" << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
     system("cls");
@@ -330,7 +330,7 @@ void freememory(Task *&head){
 
     return;
 }
-void deleteTask(Task *&head , int id){
+void deleteTask(Task *&head ){
     system("cls");
     std::string deleteEntry;
     Task *searchPtr = head;
@@ -363,9 +363,14 @@ void deleteTask(Task *&head , int id){
             system("cls");
             if( searchPtr->id== 1){
                 free(searchPtr);
+                std::cin.ignore();
+                std::cout << "\nTask Successfully Deleted.\n";
+                std::cout << "Press Enter To Return To Menu...";
+                std::cin.get();
+                return;
             }
             else
-           { std::cout << searchPtr->id;
+           { 
             while (counter < (searchPtr->id - 1))
             {
                 secondLast = secondLast->next;
@@ -412,9 +417,6 @@ void searchTask(Task*&head){
     else{
 
         std::cin.ignore();
-        std::cout << "\nYou Are Going To Search By Title.\n";
-        std::cout << "Press Enter To Search...";
-        std::cin.get();
         system("cls");
          std::cout << "Search : ";
          std::cin >> searchEntry;
