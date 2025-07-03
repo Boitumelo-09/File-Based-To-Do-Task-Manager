@@ -40,15 +40,14 @@ int main() {
     do {
         userTerminal(menuOption);
         switch (menuOption) {
-            case 1: addTask(head, id);
-                saveToFile(head);
-                break;
+            case 1: addTask(head, id);  break;
             case 2: viewAllTasks(head); break;
-            case 3: markTasks(head); break;
-            case 4: editTask(head); break;
-            case 5: deleteTask(head); break;
-            case 6: searchTask(head); break;
-            case 7: freememory(head); return 0;
+            case 3: markTasks(head);    break;
+            case 4: editTask(head);     break;
+            case 5: deleteTask(head);   break;
+            case 6: searchTask(head);   break;
+            case 7: saveToFile(head) ;  break;
+            case 8: freememory(head);   return 0;
             default:
                 std::cout << "Invalid Input\n";
                 std::cout << "Exiting Application...";
@@ -68,7 +67,7 @@ void greetUser() {
 }
 
 void userTerminal(int &option) {
-    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task \n7. Exit\n\nOption:";
+    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File \n8. Exit\n\nOption:";
     std::cin >> option;
 }
 
@@ -348,12 +347,51 @@ void searchTask(Task*&head) {
     std::cin.get();
     system("cls");
 }
+
 void saveToFile(Task *&head){
-    std::fstream file("to_do_list.txt" , std::ios::out | std::ios::app);
-    if (true)
-    {
-        file << "hello coder";
+    system("cls");
+    
+    Task *printTaskPtr = head;
+    if (printTaskPtr == nullptr) {
+        std::cin.ignore();
+        std::cout << "\nNo tasks availave to save.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
+        return;  
+    }
+    else{
+        std::fstream file("to_do_list.txt" , std::ios::out | std::ios::app);
+        file << "Tasks!";
+        file << "\n...............................\n";
+        while (printTaskPtr != nullptr)
+        {
+            
+            file << printTaskPtr->id << "\n"
+                 << printTaskPtr->title << "\n"
+                 << printTaskPtr->description << "\n"
+                 << printTaskPtr->dueDate << "\n";
+            if (printTaskPtr->isCompleted)
+            {
+                file << "Completed";
+            }
+            else
+            {
+                file << "Still Pending";
+            }
+
+            file << "\n_______________________________\n";
+            printTaskPtr = printTaskPtr->next;
+        }
+        file << "\nEnd Of List...";
+        std::cin.ignore();
+        std::cout << "\nTasks Saved.\n";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
         file.close();
     }
     
+   
+    return;
 }
