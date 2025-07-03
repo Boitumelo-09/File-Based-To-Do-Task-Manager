@@ -1,5 +1,4 @@
-/*
-🔧 Features You’ll Implement:
+/*🔧 Features You’ll Implement:
 Use substring matching in title/description.
 
 Reorder linked list based on string dates (lexicographically).
@@ -30,7 +29,7 @@ void markTasks(Task *&head);
 void editTask(Task *&head);
 void deleteTask(Task *&head);
 void searchTask(Task*&head);
-
+void saveToFile(Task *&head);
 int main() {
     srand(time(NULL));
     Task *head = nullptr;
@@ -41,7 +40,9 @@ int main() {
     do {
         userTerminal(menuOption);
         switch (menuOption) {
-            case 1: addTask(head, id); break;
+            case 1: addTask(head, id);
+                saveToFile(head);
+                break;
             case 2: viewAllTasks(head); break;
             case 3: markTasks(head); break;
             case 4: editTask(head); break;
@@ -346,4 +347,13 @@ void searchTask(Task*&head) {
     std::cout << "\nPress Enter To Return To Main...";
     std::cin.get();
     system("cls");
+}
+void saveToFile(Task *&head){
+    std::fstream file("to_do_list.txt" , std::ios::out | std::ios::app);
+    if (true)
+    {
+        file << "hello coder";
+        file.close();
+    }
+    
 }
