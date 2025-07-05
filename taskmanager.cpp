@@ -4,13 +4,15 @@ Use substring matching in title/description.
 Reorder linked list based on string dates (lexicographically).
 Save and Load from File (SUPER BONUS)
 Save all tasks to a .txt or .csv file on exit.
-Load them when program starts. 
+Load them when program starts.
 */
 #include <iostream>
 #include <fstream>
 #include <ctime>
 
-struct Task {
+class Task
+{
+public:
     int id;
     std::string title;
     std::string description;
@@ -19,7 +21,6 @@ struct Task {
     Task *next;
 };
 
-// Function Declarations
 void greetUser();
 void userTerminal(int &option);
 void freememory(Task *&head);
@@ -28,50 +29,73 @@ void viewAllTasks(Task *head);
 void markTasks(Task *&head);
 void editTask(Task *&head);
 void deleteTask(Task *&head);
-void searchTask(Task*&head);
+void searchTask(Task *&head);
 void saveToFile(Task *&head);
-int main() {
+int main()
+{
     srand(time(NULL));
     Task *head = nullptr;
     int menuOption;
     int id = 1;
     system("cls");
     greetUser();
-    do {
+    do
+    {
         userTerminal(menuOption);
-        switch (menuOption) {
-            case 1: addTask(head, id);  break;
-            case 2: viewAllTasks(head); break;
-            case 3: markTasks(head);    break;
-            case 4: editTask(head);     break;
-            case 5: deleteTask(head);   break;
-            case 6: searchTask(head);   break;
-            case 7: saveToFile(head) ;  break;
-            case 8: freememory(head);   return 0;
-            default:
-                std::cout << "Invalid Input\n";
-                std::cout << "Exiting Application...";
-                break;
+        switch (menuOption)
+        {
+        case 1:
+            addTask(head, id);
+            break;
+        case 2:
+            viewAllTasks(head);
+            break;
+        case 3:
+            markTasks(head);
+            break;
+        case 4:
+            editTask(head);
+            break;
+        case 5:
+            deleteTask(head);
+            break;
+        case 6:
+            searchTask(head);
+            break;
+        case 7:
+            saveToFile(head);
+            break;
+        case 8:
+            freememory(head);
+            return 0;
+        default:
+            std::cout << "Invalid Input\n";
+            std::cout << "Exiting Application...";
+            break;
         }
     } while (menuOption >= 1 && menuOption <= 7);
 
     return 0;
 }
 
-void greetUser() {
+void greetUser()
+{
     system("cls");
-    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The Task Should Be One Word\n\n" << std::endl;
+    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The Task Should Be One Word\n\n"
+              << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
     system("cls");
 }
 
-void userTerminal(int &option) {
+void userTerminal(int &option)
+{
     std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File \n8. Exit\n\nOption:";
     std::cin >> option;
 }
 
-void addTask(Task *&head, int &id) {
+void addTask(Task *&head, int &id)
+{
     system("cls");
     std::cout << "Adding Task...\n";
     Task *newTask = new Task();
@@ -91,11 +115,15 @@ void addTask(Task *&head, int &id) {
     system("cls");
     newTask->id = id++;
 
-    if (head == nullptr) {
+    if (head == nullptr)
+    {
         head = newTask;
-    } else {
+    }
+    else
+    {
         Task *current = head;
-        while (current->next != nullptr) {
+        while (current->next != nullptr)
+        {
             current = current->next;
         }
         current->next = newTask;
@@ -108,11 +136,13 @@ void addTask(Task *&head, int &id) {
     system("cls");
 }
 
-void viewAllTasks(Task *head) {
+void viewAllTasks(Task *head)
+{
     Task *iterator = head;
     system("cls");
     std::cout << "All Tasks";
-    if (iterator == nullptr) {
+    if (iterator == nullptr)
+    {
         std::cin.ignore();
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
@@ -121,7 +151,8 @@ void viewAllTasks(Task *head) {
         return;
     }
 
-    while (iterator != nullptr) {
+    while (iterator != nullptr)
+    {
         std::cout << "\nTask ID      : " << iterator->id;
         std::cout << "\nTitle        : " << iterator->title;
         std::cout << "\nDescription  : " << iterator->description;
@@ -138,11 +169,13 @@ void viewAllTasks(Task *head) {
     system("cls");
 }
 
-void freememory(Task *&head) {
+void freememory(Task *&head)
+{
     system("cls");
-    Task* freeTask = head;
-    while (freeTask != nullptr) {
-        Task* freshTask = freeTask->next;
+    Task *freeTask = head;
+    while (freeTask != nullptr)
+    {
+        Task *freshTask = freeTask->next;
         delete freeTask;
         freeTask = freshTask;
     }
@@ -151,14 +184,16 @@ void freememory(Task *&head) {
     return;
 }
 
-void deleteTask(Task *&head) {
+void deleteTask(Task *&head)
+{
     system("cls");
     std::string deleteEntry;
     Task *searchPtr = head;
     Task *prev = nullptr;
     bool found = false;
 
-    if (head == nullptr) {
+    if (head == nullptr)
+    {
         std::cin.ignore();
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
@@ -171,12 +206,14 @@ void deleteTask(Task *&head) {
     std::cout << "Enter Task Title : ";
     std::getline(std::cin, deleteEntry);
 
-    while (searchPtr != nullptr && searchPtr->title != deleteEntry) {
+    while (searchPtr != nullptr && searchPtr->title != deleteEntry)
+    {
         prev = searchPtr;
         searchPtr = searchPtr->next;
     }
 
-    if (searchPtr == nullptr) {
+    if (searchPtr == nullptr)
+    {
         std::cout << "\nTask Not Found.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
@@ -184,9 +221,12 @@ void deleteTask(Task *&head) {
         return;
     }
 
-    if (prev == nullptr) {
+    if (prev == nullptr)
+    {
         head = head->next;
-    } else {
+    }
+    else
+    {
         prev->next = searchPtr->next;
     }
 
@@ -198,7 +238,8 @@ void deleteTask(Task *&head) {
     return;
 }
 
-void markTasks(Task *&head) {
+void markTasks(Task *&head)
+{
     int markOption;
     std::string taskTitle;
     Task *currentTask = head;
@@ -208,11 +249,13 @@ void markTasks(Task *&head) {
     std::cin.ignore();
     getline(std::cin, taskTitle);
 
-    while (currentTask != nullptr && currentTask->title != taskTitle) {
+    while (currentTask != nullptr && currentTask->title != taskTitle)
+    {
         currentTask = currentTask->next;
     }
 
-    if (currentTask == nullptr) {
+    if (currentTask == nullptr)
+    {
         std::cout << "\n\nTask Not Found...";
         std::cout << "\nPress Enter To Return To Main Menu...";
         std::cin.get();
@@ -240,7 +283,8 @@ void markTasks(Task *&head) {
     system("cls");
 }
 
-void editTask(Task *&head) {
+void editTask(Task *&head)
+{
     system("cls");
     Task *tempTask = head;
     std::string taskTitle;
@@ -248,11 +292,13 @@ void editTask(Task *&head) {
     std::cin.ignore();
     getline(std::cin, taskTitle);
 
-    while (tempTask != nullptr && tempTask->title != taskTitle) {
+    while (tempTask != nullptr && tempTask->title != taskTitle)
+    {
         tempTask = tempTask->next;
     }
 
-    if (tempTask == nullptr) {
+    if (tempTask == nullptr)
+    {
         std::cout << "\nTask Not Found...\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
@@ -269,35 +315,36 @@ void editTask(Task *&head) {
     std::cin >> updateOption;
     std::cin.ignore();
 
-    switch (updateOption) {
-        case 1:
-            system("cls");
-            std::cout << "Updating Title...\n";
-            std::cout << "Current Title :" << tempTask->title;
-            std::cout << "\nNew Title     :";
-            std::cin >> newTitle;
-            tempTask->title = newTitle;
-            break;
-        case 2:
-            system("cls");
-            std::cout << "Updating Description...\n";
-            std::cout << "Current Description :" << tempTask->description;
-            std::cout << "\nNew Description   :";
-            getline(std::cin, newDescription);
-            tempTask->description = newDescription;
-            break;
-        case 3:
-            system("cls");
-            int statusChoice;
-            std::cout << "Updating Status...\nOptions:\n1. Completed\n2. Pending\nChoice:";
-            std::cin >> statusChoice;
-            tempTask->isCompleted = (statusChoice == 1);
-            break;
-        default:
-            std::cout << "Invalid Response\nPress Enter To Exit App...";
-            std::cin.get();
-            freememory(head);
-            exit(0);
+    switch (updateOption)
+    {
+    case 1:
+        system("cls");
+        std::cout << "Updating Title...\n";
+        std::cout << "Current Title :" << tempTask->title;
+        std::cout << "\nNew Title     :";
+        std::cin >> newTitle;
+        tempTask->title = newTitle;
+        break;
+    case 2:
+        system("cls");
+        std::cout << "Updating Description...\n";
+        std::cout << "Current Description :" << tempTask->description;
+        std::cout << "\nNew Description   :";
+        getline(std::cin, newDescription);
+        tempTask->description = newDescription;
+        break;
+    case 3:
+        system("cls");
+        int statusChoice;
+        std::cout << "Updating Status...\nOptions:\n1. Completed\n2. Pending\nChoice:";
+        std::cin >> statusChoice;
+        tempTask->isCompleted = (statusChoice == 1);
+        break;
+    default:
+        std::cout << "Invalid Response\nPress Enter To Exit App...";
+        std::cin.get();
+        freememory(head);
+        exit(0);
     }
 
     std::cout << "\nTask Successfully Updated\nPress Enter To Return To Menu...";
@@ -305,12 +352,14 @@ void editTask(Task *&head) {
     system("cls");
 }
 
-void searchTask(Task*&head) {
+void searchTask(Task *&head)
+{
     system("cls");
     Task *tempTask = head;
     std::string searchEntry;
 
-    if (tempTask == nullptr) {
+    if (tempTask == nullptr)
+    {
         std::cin.ignore();
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
@@ -323,11 +372,13 @@ void searchTask(Task*&head) {
     std::cout << "Search : ";
     std::getline(std::cin, searchEntry);
 
-    while (tempTask != nullptr && tempTask->title != searchEntry) {
+    while (tempTask != nullptr && tempTask->title != searchEntry)
+    {
         tempTask = tempTask->next;
     }
 
-    if (tempTask == nullptr) {
+    if (tempTask == nullptr)
+    {
         std::cout << "Task Not Found.\nPress Enter To Return To Main...";
         std::cin.get();
         system("cls");
@@ -348,25 +399,28 @@ void searchTask(Task*&head) {
     system("cls");
 }
 
-void saveToFile(Task *&head){
+void saveToFile(Task *&head)
+{
     system("cls");
-    
+
     Task *printTaskPtr = head;
-    if (printTaskPtr == nullptr) {
+    if (printTaskPtr == nullptr)
+    {
         std::cin.ignore();
         std::cout << "\nNo tasks availave to save.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
         system("cls");
-        return;  
+        return;
     }
-    else{
-        std::fstream file("to_do_list.txt" , std::ios::out | std::ios::app);
+    else
+    {
+        std::fstream file("to_do_list.txt", std::ios::out | std::ios::app);
         file << "Tasks!";
         file << "\n...............................\n";
         while (printTaskPtr != nullptr)
         {
-            
+
             file << printTaskPtr->id << "\n"
                  << printTaskPtr->title << "\n"
                  << printTaskPtr->description << "\n"
@@ -391,7 +445,6 @@ void saveToFile(Task *&head){
         system("cls");
         file.close();
     }
-    
-   
+
     return;
 }
