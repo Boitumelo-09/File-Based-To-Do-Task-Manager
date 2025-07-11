@@ -22,7 +22,7 @@ public:
 };
 
 void greetUser();
-void userTerminal(int &option);
+void showMenu(int &option);
 void freememory(Task *&head);
 void addTask(Task *&head, int &id);
 void viewAllTasks(Task *head);
@@ -31,6 +31,7 @@ void editTask(Task *&head);
 void deleteTask(Task *&head);
 void searchTask(Task *&head);
 void saveToFile(Task *&head);
+void loadfromFILE(Task *head);
 int main()
 {
     srand(time(NULL));
@@ -41,7 +42,7 @@ int main()
     greetUser();
     do
     {
-        userTerminal(menuOption);
+        showMenu(menuOption);
         switch (menuOption)
         {
         case 1:
@@ -66,6 +67,9 @@ int main()
             saveToFile(head);
             break;
         case 8:
+            loadfromFILE(head);
+            break;
+        case 9:
             freememory(head);
             return 0;
         default:
@@ -73,7 +77,7 @@ int main()
             std::cout << "Exiting Application...";
             break;
         }
-    } while (menuOption >= 1 && menuOption <= 7);
+    } while (menuOption >= 1 && menuOption <= 9);
 
     return 0;
 }
@@ -88,9 +92,9 @@ void greetUser()
     system("cls");
 }
 
-void userTerminal(int &option)
+void showMenu(int &option)
 {
-    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File \n8. Exit\n\nOption:";
+    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File\n8. Load Tasks From A File \n9. Exit\n\nOption:";
     std::cin >> option;
 }
 
@@ -400,9 +404,10 @@ void searchTask(Task *&head)
 }
 
 void saveToFile(Task *&head)
+
 {
     system("cls");
-
+    std::ofstream file("to_do_list.txt", std::ios::app);
     Task *printTaskPtr = head;
     if (printTaskPtr == nullptr)
     {
@@ -415,7 +420,7 @@ void saveToFile(Task *&head)
     }
     else
     {
-        std::fstream file("to_do_list.txt", std::ios::out | std::ios::app);
+
         file << "Tasks!";
         file << "\n...............................\n";
         while (printTaskPtr != nullptr)
@@ -447,4 +452,35 @@ void saveToFile(Task *&head)
     }
 
     return;
+}
+
+void loadfromFILE(Task *head)
+{
+    std::ifstream file("to_do_list.txt");
+    std::string line;
+    system("cls");
+    std::cin.ignore();
+    std::cout << "Loading From A File...\nPress Enter To View Your Tasks...";
+    std::cin.get();
+    system("cls");
+    if (file.is_open())
+    {
+        while (getline(file, line))
+        {
+            std::cout << line << std::endl;
+        }
+
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
+        return;
+    }
+    else
+    {
+        std::cout << "File Not Found...";
+        std::cout << "Press Enter To Return To Menu...";
+        std::cin.get();
+        system("cls");
+        return;
+    }
 }
