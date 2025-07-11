@@ -1,9 +1,5 @@
 /*🔧 Features You’ll Implement:
 Use substring matching in title/description.
-
-Reorder linked list based on string dates (lexicographically).
-Save and Load from File (SUPER BONUS)
-Save all tasks to a .txt or .csv file on exit.
 Load them when program starts.
 */
 #include <iostream>
@@ -473,6 +469,7 @@ void loadfromFILE(Task *head)
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
         system("cls");
+
         return;
     }
     else
@@ -483,4 +480,6 @@ void loadfromFILE(Task *head)
         system("cls");
         return;
     }
+
+    file.close();
 }
