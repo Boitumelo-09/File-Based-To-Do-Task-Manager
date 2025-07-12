@@ -1,7 +1,4 @@
-/*🔧 Features You’ll Implement:
-Use substring matching in title/description.
-Load them when program starts.
-*/
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -15,6 +12,10 @@ public:
     std::string dueDate;
     bool isCompleted;
     Task *next;
+    Task() : id(0), title(""), description(""), dueDate(""), isCompleted(false), next(nullptr) {};
+    Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task *next) : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next)
+    {
+    }
 };
 
 void greetUser();
@@ -44,6 +45,7 @@ int main()
         case 1:
             addTask(head, id);
             break;
+
         case 2:
             viewAllTasks(head);
             break;
