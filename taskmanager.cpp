@@ -92,7 +92,7 @@ void greetUser()
 
 void showMenu(int &option)
 {
-    std::cout << ".....Task Manager Menu.....\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File\n8. Load Tasks From A File \n9. Exit\n\nOption:";
+    std::cout << "\t\tTask Manager Menu\n\n1. Add New Task \n2. View All Tasks \n3. Mark Task Complete \n4. Edit Task \n5. Delete Task \n6. Search Task\n7. Save Tasks To File\n8. Load Tasks From A File \n9. Exit\n\nOption:";
     std::cin >> option;
 }
 
