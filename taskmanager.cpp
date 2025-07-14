@@ -14,6 +14,7 @@ public:
     Task *next{nullptr};
 
     Task() = default;
+
     Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task *next) : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next)
     {
     }
@@ -72,6 +73,7 @@ int main()
             freememory(head);
             return 0;
         default:
+            system("cls");
             std::cout << "Invalid Input\n";
             std::cout << "Exiting Application...";
             break;
@@ -405,9 +407,11 @@ void searchTask(Task *head)
 void saveToFile(Task *&head)
 
 {
+    int optionChoice;
     system("cls");
-    std::ofstream file("to_do_list.txt", std::ios::app);
+
     Task *printTaskPtr = head;
+
     if (printTaskPtr == nullptr)
     {
         std::cin.ignore();
@@ -419,35 +423,79 @@ void saveToFile(Task *&head)
     }
     else
     {
-
-        file << "Tasks!";
-        file << "\n...............................\n";
-        while (printTaskPtr != nullptr)
+        std::cout << "\t\tOptions\n\n";
+        std::cout << "\t\t1. Append Tasks\n";
+        std::cout << "\t\t2. Overwrite Tasks\n";
+        std::cout << "\tOption_:";
+        std::cin >> optionChoice;
+        if (optionChoice == 1)
         {
-
-            file << printTaskPtr->id << "\n"
-                 << printTaskPtr->title << "\n"
-                 << printTaskPtr->description << "\n"
-                 << printTaskPtr->dueDate << "\n";
-            if (printTaskPtr->isCompleted)
+            std::ofstream file("to_do_list.txt", std::ios::app);
+            file << "Tasks!";
+            file << "\n...............................\n";
+            while (printTaskPtr != nullptr)
             {
-                file << "Completed";
-            }
-            else
-            {
-                file << "Still Pending";
-            }
 
-            file << "\n_______________________________\n";
-            printTaskPtr = printTaskPtr->next;
+                file << printTaskPtr->id << "\n"
+                     << printTaskPtr->title << "\n"
+                     << printTaskPtr->description << "\n"
+                     << printTaskPtr->dueDate << "\n";
+                if (printTaskPtr->isCompleted)
+                {
+                    file << "Completed";
+                }
+                else
+                {
+                    file << "Still Pending";
+                }
+
+                file << "\n_______________________________\n";
+                printTaskPtr = printTaskPtr->next;
+            }
+            file << "\nEnd Of List...";
+            file.close();
         }
-        file << "\nEnd Of List...";
+        else if (optionChoice == 2)
+        {
+            std::ofstream file("to_do_list.txt");
+            file << "Tasks!";
+            file << "\n...............................\n";
+            while (printTaskPtr != nullptr)
+            {
+
+                file << printTaskPtr->id << "\n"
+                     << printTaskPtr->title << "\n"
+                     << printTaskPtr->description << "\n"
+                     << printTaskPtr->dueDate << "\n";
+                if (printTaskPtr->isCompleted)
+                {
+                    file << "Completed";
+                }
+                else
+                {
+                    file << "Still Pending";
+                }
+
+                file << "\n_______________________________\n";
+                printTaskPtr = printTaskPtr->next;
+            }
+            file << "\nEnd Of List...";
+            file.close();
+        }
+        else
+        {
+            std::cin.ignore();
+            std::cout << "\nAn Error Occured\n";
+            std::cout << "Press Enter To Return To Menu...";
+            std::cin.get();
+            system("cls");
+            return;
+        }
         std::cin.ignore();
         std::cout << "\nTasks Saved.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
         system("cls");
-        file.close();
     }
 
     return;

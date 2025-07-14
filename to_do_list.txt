@@ -1,9 +1,18 @@
 Tasks!
 ...............................
 1
-Boitumelo
-Go to town 
-23 November 2026
+Skhalo
+fallow
+23 April 2024
+Still Pending
+_______________________________
+
+End Of List...Tasks!
+...............................
+1
+Skhalo
+fallow
+23 April 2024
 Still Pending
 _______________________________
 
@@ -11,9 +20,9 @@ End Of List...Tasks!
 ...............................
 1
 Boitumelo
-Go to town 
-23 November 2026
-Completed
+Study Hard
+23 November 2024
+Still Pending
 _______________________________
 
 End Of List...
