@@ -6,14 +6,14 @@
 class Task
 {
 public:
-    int id;
-    std::string title;
-    std::string description;
-    std::string dueDate;
-    bool isCompleted;
-    Task *next;
-    Task() : id(0), title(""), description(""), dueDate(""), isCompleted(false), next(nullptr) {};
+    int id{0};
+    std::string title{""};
+    std::string description{""};
+    std::string dueDate{""};
+    bool isCompleted{false};
+    Task *next{nullptr};
 
+    Task() = default;
     Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task *next) : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next)
     {
     }
