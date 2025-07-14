@@ -13,6 +13,7 @@ public:
     bool isCompleted;
     Task *next;
     Task() : id(0), title(""), description(""), dueDate(""), isCompleted(false), next(nullptr) {};
+
     Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task *next) : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next)
     {
     }
@@ -26,7 +27,7 @@ void viewAllTasks(Task *head);
 void markTasks(Task *&head);
 void editTask(Task *&head);
 void deleteTask(Task *&head);
-void searchTask(Task *&head);
+void searchTask(Task *head);
 void saveToFile(Task *&head);
 void loadfromFILE(Task *head);
 int main()
@@ -354,7 +355,7 @@ void editTask(Task *&head)
     system("cls");
 }
 
-void searchTask(Task *&head)
+void searchTask(Task *head)
 {
     system("cls");
     Task *tempTask = head;
