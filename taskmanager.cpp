@@ -33,7 +33,7 @@ void saveToFile(Task *&head);
 void loadfromFILE(Task *head);
 int main()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
     Task *head = nullptr;
     int menuOption;
     int id = 1;
@@ -74,7 +74,7 @@ int main()
             return 0;
         default:
             system("cls");
-            std::cout << "Invalid Input\n";
+            std::cout << "Unknown User Input\n";
             std::cout << "Exiting Application...";
             break;
         }
@@ -86,7 +86,7 @@ int main()
 void greetUser()
 {
     system("cls");
-    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nThe Title Of The Task Should Be One Word\n\n"
+    std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nOnly One Word Will Be Accepted For Task Title.\n\n"
               << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
