@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include <cstdlib>
 
 #ifdef _WIN32
@@ -29,6 +30,7 @@ public:
 };
 void clearScreen()
 {
+    system(wipeScreen);
 }
 void greetUser();
 void showMenu(int &option);
@@ -47,7 +49,7 @@ int main()
     Task *head = nullptr;
     int menuOption;
     int id = 1;
-    system(wipeScreen);
+    clearScreen();
     greetUser();
     do
     {
@@ -83,7 +85,7 @@ int main()
             freememory(head);
             return 0;
         default:
-            system(wipeScreen);
+            clearScreen();
             std::cout << "Unknown User Input\n";
             std::cout << "Exiting Application...";
             break;
@@ -95,12 +97,12 @@ int main()
 
 void greetUser()
 {
-    system(wipeScreen);
+    clearScreen();
     std::cout << "Hello, Welcome To The Task Manager App\nFollow Prompts\nOnly One Word Will Be Accepted For Task Title.\n\n"
               << std::endl;
     std::cout << "Enter To Continue...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void showMenu(int &option)
@@ -111,7 +113,7 @@ void showMenu(int &option)
 
 void addTask(Task *&head, int &id)
 {
-    system(wipeScreen);
+    clearScreen();
     std::cout << "Adding Task...\n";
     Task *newTask = new Task();
     newTask->next = nullptr;
@@ -127,7 +129,7 @@ void addTask(Task *&head, int &id)
 
     std::cout << "\nDone!, Press Enter To Generate Task Id...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
     newTask->id = id++;
 
     if (head == nullptr)
@@ -148,13 +150,13 @@ void addTask(Task *&head, int &id)
     std::cout << "Task ID :" << newTask->id;
     std::cout << "\nPress Enter To Return To Menu...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void viewAllTasks(Task *head)
 {
     Task *iterator = head;
-    system(wipeScreen);
+    clearScreen();
     std::cout << "All Tasks";
     if (iterator == nullptr)
     {
@@ -162,7 +164,7 @@ void viewAllTasks(Task *head)
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
@@ -181,12 +183,12 @@ void viewAllTasks(Task *head)
     std::cin.ignore();
     std::cout << "\nPress Enter To Return To Menu...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void freememory(Task *&head)
 {
-    system(wipeScreen);
+    clearScreen();
     Task *freeTask = head;
     while (freeTask != nullptr)
     {
@@ -201,7 +203,7 @@ void freememory(Task *&head)
 
 void deleteTask(Task *&head)
 {
-    system(wipeScreen);
+    clearScreen();
     std::string deleteEntry;
     Task *searchPtr = head;
     Task *prev = nullptr;
@@ -213,7 +215,7 @@ void deleteTask(Task *&head)
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
@@ -232,7 +234,7 @@ void deleteTask(Task *&head)
         std::cout << "\nTask Not Found.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
@@ -249,7 +251,7 @@ void deleteTask(Task *&head)
     std::cout << "\nTask Successfully Deleted.\n";
     std::cout << "Press Enter To Return To Menu...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
     return;
 }
 
@@ -258,7 +260,7 @@ void markTasks(Task *&head)
     int markOption;
     std::string taskTitle;
     Task *currentTask = head;
-    system(wipeScreen);
+    clearScreen();
     std::cout << "Marking Task...\n\n";
     std::cout << "Task Title:";
     std::cin.ignore();
@@ -274,7 +276,7 @@ void markTasks(Task *&head)
         std::cout << "\n\nTask Not Found...";
         std::cout << "\nPress Enter To Return To Main Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
@@ -286,7 +288,7 @@ void markTasks(Task *&head)
     std::cin >> markOption;
     currentTask->isCompleted = (markOption == 1);
     std::cin.ignore();
-    system(wipeScreen);
+    clearScreen();
     std::cout << "Task Update...\n\n";
     std::cout << "Details:";
     std::cout << "\nTask ID      : " << currentTask->id;
@@ -295,12 +297,12 @@ void markTasks(Task *&head)
     std::cout << "\nStatus       : " << (currentTask->isCompleted ? "Completed" : "Pending");
     std::cout << "\n\nPress Enter To Continue...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void editTask(Task *&head)
 {
-    system(wipeScreen);
+    clearScreen();
     Task *tempTask = head;
     std::string taskTitle;
     std::cout << "Editing Task...\nTask Title : ";
@@ -317,13 +319,13 @@ void editTask(Task *&head)
         std::cout << "\nTask Not Found...\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
     std::cout << "Task Found...\nPress Enter To Continue To Make Changes...\n";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
     int updateOption;
     std::string newTitle, newDescription;
     std::cout << "Making Updates...\nOptions\n1. Update Title\n2. Update Description\n3. Update Status\nOption:";
@@ -333,7 +335,7 @@ void editTask(Task *&head)
     switch (updateOption)
     {
     case 1:
-        system(wipeScreen);
+        clearScreen();
         std::cout << "Updating Title...\n";
         std::cout << "Current Title :" << tempTask->title;
         std::cout << "\nNew Title     :";
@@ -341,7 +343,7 @@ void editTask(Task *&head)
         tempTask->title = newTitle;
         break;
     case 2:
-        system(wipeScreen);
+        clearScreen();
         std::cout << "Updating Description...\n";
         std::cout << "Current Description :" << tempTask->description;
         std::cout << "\nNew Description   :";
@@ -349,7 +351,7 @@ void editTask(Task *&head)
         tempTask->description = newDescription;
         break;
     case 3:
-        system(wipeScreen);
+        clearScreen();
         int statusChoice;
         std::cout << "Updating Status...\nOptions:\n1. Completed\n2. Pending\nChoice:";
         std::cin >> statusChoice;
@@ -364,12 +366,12 @@ void editTask(Task *&head)
 
     std::cout << "\nTask Successfully Updated\nPress Enter To Return To Menu...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void searchTask(Task *head)
 {
-    system(wipeScreen);
+    clearScreen();
     Task *tempTask = head;
     std::string searchEntry;
 
@@ -379,7 +381,7 @@ void searchTask(Task *head)
         std::cout << "\nNo tasks available.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
@@ -396,13 +398,13 @@ void searchTask(Task *head)
     {
         std::cout << "Task Not Found.\nPress Enter To Return To Main...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
     std::cout << "Task Found.\nPress Enter To See Details...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
     std::cout << "\nTask ID      : " << tempTask->id;
     std::cout << "\nTitle        : " << tempTask->title;
     std::cout << "\nDescription  : " << tempTask->description;
@@ -411,14 +413,14 @@ void searchTask(Task *head)
     std::cout << "\n-----------------------------------\n";
     std::cout << "\nPress Enter To Return To Main...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
 }
 
 void saveToFile(Task *&head)
 
 {
     int optionChoice;
-    system(wipeScreen);
+    clearScreen();
 
     Task *printTaskPtr = head;
 
@@ -428,7 +430,7 @@ void saveToFile(Task *&head)
         std::cout << "\nNo tasks availave to save.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
     else
@@ -498,14 +500,14 @@ void saveToFile(Task *&head)
             std::cout << "\nAn Error Occured\n";
             std::cout << "Press Enter To Return To Menu...";
             std::cin.get();
-            system(wipeScreen);
+            clearScreen();
             return;
         }
         std::cin.ignore();
         std::cout << "\nTasks Saved.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
     }
 
     return;
@@ -515,11 +517,11 @@ void loadfromFILE(Task *head)
 {
     std::ifstream file("to_do_list.txt");
     std::string line;
-    system(wipeScreen);
+    clearScreen();
     std::cin.ignore();
     std::cout << "Loading From A File...\nPress Enter To View Your Tasks...";
     std::cin.get();
-    system(wipeScreen);
+    clearScreen();
     if (file.is_open())
     {
         while (getline(file, line))
@@ -529,7 +531,7 @@ void loadfromFILE(Task *head)
 
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
 
         return;
     }
@@ -538,7 +540,7 @@ void loadfromFILE(Task *head)
         std::cout << "File Not Found...";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
-        system(wipeScreen);
+        clearScreen();
         return;
     }
 
