@@ -1,98 +1,17 @@
-
+#include "TaskManager.h"
 #include <iostream>
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
 
-#ifdef _WIN32
-#define wipeScreen "cls"
 
-#else
-#define wipeScreen "clear"
+Task::Task() : id(0), title(""), description(""), dueDate(""), isCompleted(false), next(nullptr) {}
 
-#endif
+Task::Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task* next)
+    : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next) {}
 
-class Task
-{
-public:
-    int id{0};
-    std::string title{""};
-    std::string description{""};
-    std::string dueDate{""};
-    bool isCompleted{false};
-    Task *next{nullptr};
-
-    Task() = default;
-
-    Task(int id, std::string title, std::string description, std::string dueDate, bool isCompleted, Task *next) : id(id), title(title), description(description), dueDate(dueDate), isCompleted(isCompleted), next(next)
-    {
-    }
-};
-void clearScreen()
-{
-    system(wipeScreen);
-}
-void greetUser();
-void showMenu(int &option);
-void freememory(Task *&head);
-void addTask(Task *&head, int &id);
-void viewAllTasks(Task *head);
-void markTasks(Task *&head);
-void editTask(Task *&head);
-void deleteTask(Task *&head);
-void searchTask(Task *head);
-void saveToFile(Task *&head);
-void loadfromFILE(Task *head);
-int main()
-{
-    srand(time(nullptr));
-    Task *head = nullptr;
-    int menuOption;
-    int id = 1;
-    clearScreen();
-    greetUser();
-    do
-    {
-        showMenu(menuOption);
-        switch (menuOption)
-        {
-        case 1:
-            addTask(head, id);
-            break;
-
-        case 2:
-            viewAllTasks(head);
-            break;
-        case 3:
-            markTasks(head);
-            break;
-        case 4:
-            editTask(head);
-            break;
-        case 5:
-            deleteTask(head);
-            break;
-        case 6:
-            searchTask(head);
-            break;
-        case 7:
-            saveToFile(head);
-            break;
-        case 8:
-            loadfromFILE(head);
-            break;
-        case 9:
-            freememory(head);
-            return 0;
-        default:
-            clearScreen();
-            std::cout << "Unknown User Input\n";
-            std::cout << "Exiting Application...";
-            break;
-        }
-    } while (menuOption >= 1 && menuOption <= 9);
-
-    return 0;
+void clearScreen() {
+    system(wipeScreen);  
 }
 
 void greetUser()
