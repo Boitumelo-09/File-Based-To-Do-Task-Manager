@@ -46,7 +46,7 @@ int main()
             return 0;
         default:
             clearScreen();
-            std::cout << "Unknown User Input\n";
+            std::cout << "Unknown sInput\n";
             std::cout << "Exiting Application...";
             break;
         }
