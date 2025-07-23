@@ -150,7 +150,7 @@ void deleteTask(Task *&head)
 
     if (searchPtr == nullptr)
     {
-        std::cout << "\nTask Not Found.\n";
+        std::cout << "\n404 Task Not Found.\n";
         std::cout << "Press Enter To Return To Menu...";
         std::cin.get();
         clearScreen();
